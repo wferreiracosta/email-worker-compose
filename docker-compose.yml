@@ -4,9 +4,17 @@ volumes:
 services:
   db:
     image: postgres:9.6
+    environment:
+      POSTGRES_PASSWORD: teste
     volumes:
       # Volume dos dados
       - dados:/var/lib/postgresql/data
       # Scripts
       - ./script:/scripts
       - ./script/init.sql:/docker-entrypoint-intdb.d/init.sql
+  frontend:
+    image: nginx:1.13
+    volumes:
+      - ./web:/usr/share/nginx/html/
+    ports:
+      - 80:80
